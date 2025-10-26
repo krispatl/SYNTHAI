@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soul Synth Composer</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+</head>
+<body>
+  <div class="header">
+    <h1>SOUL SYNTH COMPOSER</h1>
+    <button id="startButton">Begin Transmission</button>
+    <select id="entitySelect">
+      <option>The Archivist</option>
+      <option>The Blooming Core</option>
+      <option>Entity Δ14</option>
+    </select>
+  </div>
+
+  <video id="inputVideo" autoplay playsinline></video>
+  <canvas id="synthCanvas"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>
