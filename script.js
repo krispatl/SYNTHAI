@@ -77,11 +77,27 @@ document.getElementById("startButton").addEventListener("click", async () => {
 // -------------------------------- AUDIO FX --------------------------------
 function updateFX() {
   const c = entityConfigs[activeEntity];
+
+  // Stop current synth to rebuild cleanly
+  if (synth) synth.dispose();
+
+  // Choose synth type dynamically
+  let SynthType = Tone.Synth;
+  if (c.synthType === "fm") SynthType = Tone.FMSynth;
+  else if (c.synthType === "am") SynthType = Tone.AMSynth;
+
+  // Rebuild synth safely
+  synth = new Tone.PolySynth(SynthType, {
+    oscillator: { type: c.synthType === "sawtooth" ? "sawtooth" : "sine" },
+    envelope: { attack: 0.01, decay: 0.2, sustain: 0.3, release: 0.5 },
+  }).connect(echo);
+
+  // Update filter, reverb, drone to match
   reverb.decay = c.reverb;
   filter.frequency.value = c.filterFreq;
-  drone.frequency.value = c.droneFreq;
-  synth.set({ oscillator: { type: c.synthType } });
+  drone.frequency.linearRampTo(c.droneFreq, 1);
 }
+
 
 // -------------------------------- DRAWING CONTROLS --------------------------------
 function getXY(e) {
